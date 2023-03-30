@@ -1,0 +1,28 @@
+{
+  "name": "refactoring",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "main": "tsc && node ./dist/main",
+    "test": "tsc && jest ./dist/test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lucassouzasilvadev/refactoring-js.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/lucassouzasilvadev/refactoring-js/issues"
+  },
+  "homepage": "https://github.com/lucassouzasilvadev/refactoring-js#readme",
+  "dependencies": {
+    "@types/jest": "^29.5.0",
+    "jest": "^29.5.0",
+    "ts-jest": "^29.0.5",
+    "ts-node": "^10.9.1",
+    "typescript": "^5.0.2"
+  }
+}
