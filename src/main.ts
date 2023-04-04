@@ -1,48 +1,42 @@
-// @ts-nocheck
-// calculate ride
-export function calc (movArray) {
-	let result = 0;
-	for (const mov of movArray) {
-		if (mov.dist != null && mov.dist != undefined && typeof mov.dist === "number" && mov.dist > 0) {
-			if (mov.ds != null && mov.ds != undefined && mov.ds instanceof Date && mov.ds.toString() !== "Invalid Date") {
-	
-				// overnight
-			
-				if (mov.ds.getHours() >= 22 || mov.ds.getHours() <= 6) {
-			
-					// not sunday
-					if (mov.ds.getDay() !== 0) {
-						
-						result += mov.dist * 3.90;
-					// sunday
-					} else {
-						result += mov.dist * 5;
-	
-					}
-				} else {
-					// sunday
-					if (mov.ds.getDay() === 0) {
-			
-						result += mov.dist * 2.9;
-			
-					} else {
-						result += mov.dist * 2.10;
-					}
-				}
-			} else {
-				// console.log(d);
-				return -2;
-			}
-		} else {
-			// console.log(dist);
-	
-			return -1;
+function isSunday(date: Date){
+	return date.getDay() === 0;
+}
+
+function isovernight(date: Date){
+	return date.getHours() >= 22 || date.getHours() <= 6;
+}
+
+function isValidDistance(distance: number){
+	return distance != null && distance != undefined && typeof distance === "number" && distance > 0;
+}
+
+function isValidDate(date: Date){
+	return date != null && date != undefined && date instanceof Date && date.toString() !== "Invalid Date";
+}
+
+const SUNDAY_OVERNIGHT_FARE = 5;
+const OVERNIGHT_FARE = 3.9;
+const SUNDAY_FARE = 2.9;
+const NORMAL_FARE = 2.1;
+const MIN_FARE = 10;
+
+export function calculateRide (segments: any[]) {
+	let fare = 0;
+	for (const segment of segments) {
+		if (!isValidDistance(segment.distance)) throw new Error("Invalid Distance");
+		if (!isValidDate(segment.date)) throw new Error("Invalid Date"); 
+		if (isovernight(segment.date) && isSunday(segment.date)) {			
+				fare += segment.distance * SUNDAY_OVERNIGHT_FARE;  					
 		}
-		
+		if(isovernight(segment.date) && !isSunday(segment.date)) {
+				fare += segment.distance * OVERNIGHT_FARE;
+		}			
+		if (!isovernight(segment.date) && isSunday(segment.date)) { 			
+			fare += segment.distance * SUNDAY_FARE;		
+		} 
+		if (!isovernight(segment.date) && !isSunday(segment.date)) {
+				fare += segment.distance * NORMAL_FARE;  
+		}		
 	}
-	if (result < 10) {
-		return 10;
-	} else {
-		return result;
-	}
+	return  (fare < MIN_FARE) ? 10 : fare
 }
