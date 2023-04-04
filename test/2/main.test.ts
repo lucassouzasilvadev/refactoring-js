@@ -1,4 +1,4 @@
-import { calculateRide } from "../src/main";
+import { calculateRide } from "../../src/2/main";
 
 test("deve fazer uma corrida em um dia de semana e em horário normal", function(){
     //given, arrange
