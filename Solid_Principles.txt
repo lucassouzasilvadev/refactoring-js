@@ -1,0 +1,6 @@
+SOLID Principles
+
+O - Open/Closed
+
+Estar aberto para extensão e "fechado" para modificação
+

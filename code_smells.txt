@@ -33,3 +33,10 @@
 * tratar erros de forma adequado
 
 8- arquivo/classe grande
+
+* extrair classe
+
+9 - inveja de dados / longa cadeia de mensagens
+
+* extrair um método
+* mover um método para outra classe
